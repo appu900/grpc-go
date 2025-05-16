@@ -117,9 +117,9 @@ const file_hello_proto_rawDesc = "" +
 	"\fHelloRequest\x12\x1c\n" +
 	"\tSomething\x18\x01 \x01(\tR\tSomething\"%\n" +
 	"\rHelloResponse\x12\x14\n" +
-	"\x05Reply\x18\x01 \x01(\tR\x05Reply2H\n" +
-	"\aExample\x12=\n" +
-	"\fServerReplay\x12\x15.example.HelloRequest\x1a\x16.example.HelloResponseB\x04Z\x02./b\x06proto3"
+	"\x05Reply\x18\x01 \x01(\tR\x05Reply2J\n" +
+	"\aExample\x12?\n" +
+	"\fServerReplay\x12\x15.example.HelloRequest\x1a\x16.example.HelloResponse(\x01B\x04Z\x02./b\x06proto3"
 
 var (
 	file_hello_proto_rawDescOnce sync.Once

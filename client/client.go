@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -21,15 +22,37 @@ func main() {
 	}
 	client = proto.NewExampleClient(conn)
 	r := gin.Default()
-	r.POST("/sent-message/:message", clientConnectionServer)
+	r.POST("/send-message", clientConnectionServer)
 	r.Run(":8080")
 }
 
 func clientConnectionServer(c *gin.Context) {
-	message := c.Param("message")
-	req := &proto.HelloRequest{Something: message}
-	client.ServerReplay(context.TODO(), req)
+	req := []*proto.HelloRequest{
+		{Something: "Request1"},
+		{Something: "Request2"},
+		{Something: "Reqeust3"},
+		{Something: "Request4"},
+	}
+
+	stream, err := client.ServerReplay(context.TODO())
+	if err != nil {
+		fmt.Println("Something went wrong !!")
+		return
+	}
+	for _, re := range req {
+		err := stream.Send(re)
+		if err != nil {
+			fmt.Println("request not fulfil")
+			return
+		}
+	}
+
+	response, err := stream.CloseAndRecv()
+	if err != nil {
+		fmt.Println("there is some error occure")
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "message sent sucessfully to server",
+		"message_count": response,
 	})
 }

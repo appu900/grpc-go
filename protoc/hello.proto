@@ -15,5 +15,5 @@ message HelloResponse {
 
 
 service Example {
-    rpc ServerReplay(HelloRequest) returns (HelloResponse);
+    rpc ServerReplay( stream HelloRequest) returns (HelloResponse);
 }
